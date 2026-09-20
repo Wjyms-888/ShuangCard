@@ -6,7 +6,7 @@
 
 ## 🎉 在线体验（GitHub Pages）
 
-> **<https://wjyms-666.github.io/ShuangCard/>**
+> **<https://Wjyms-888.github.io/ShuangCard/>**
 
 打开即是「创作台」。桌面端浏览器体验最佳（拖拽转卡、滚轮缩放）。
 
