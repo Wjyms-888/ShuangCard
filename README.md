@@ -49,7 +49,11 @@ https://github.com/user-attachments/assets/44c4fff4-6374-471f-9a3b-1228c61bf09e
 
 
 2.浮雕模式
-> **<https://Wjyms-888.github.io/ShuangCard/>**
+
+
+https://github.com/user-attachments/assets/7995c465-a0f0-4572-a14b-d7f5774815e6
+
+
 
 ## 📁 仓库结构（本目录为可部署的完整站点）
 
