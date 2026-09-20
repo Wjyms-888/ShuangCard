@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>爽Card · 创作台</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="./editor.css" />
+  </head>
+  <body class="editor">
+    <div class="grain"></div>
+
+    <header class="topbar">
+      <div class="plaque">
+        <span class="plaque-logo"><span>爽</span></span>
+        <span class="latin">SHUANG CARD</span>
+        <span class="plaque-divider"></span>
+        <span class="cjk">创作台</span>
+        <span id="ed-draft-state" class="draft-state">草稿：未保存</span>
+      </div>
+      <div class="spacer"></div>
+      <nav class="page-nav" aria-label="页面导航">
+        <a href="#" class="nav-link">首页</a>
+        <a href="#" class="nav-link on" aria-current="page">创作台</a>
+        <a href="#" class="nav-link">我的卡库</a>
+        <a href="#" class="nav-link">展览馆</a>
+      </nav>
+      <div class="spacer"></div>
+      <div class="topbar-actions">
+        <button id="ed-clear-draft" class="quiet-btn" title="清空本地草稿，从头开始">清空草稿</button>
+        <button id="ed-import" class="quiet-btn" title="导入 .holo 卡片文件（可回流编辑）">导入卡片</button>
+        <button id="ed-export-holo" class="brass-btn" title="保存为 .holo 卡片文件（含全部图层与配置，可回流编辑）">导出卡片</button>
+      </div>
+    </header>
+
+    <main class="ed-main">
+      <!-- 舞台：暗墙 + 拱形壁龛 + 悬挂展柜 + 活体卡片（透明画布） -->
+      <section class="stage">
+        <div class="niche"></div>
+        <div class="spotlight"></div>
+        <div class="dust"></div>
+
+        <div class="case-frame">
+          <div class="wire l"></div><div class="wire r"></div>
+          <div class="ring l"></div><div class="ring r"></div>
+          <div class="frame-rim">
+            <div class="mat">
+              <div id="ed-stage" tabindex="0" role="group" aria-label="可旋转的全息卡片预览">
+                <div id="ed-loading" class="ed-loading">正在装裱作品</div>
+              </div>
+            </div>
+          </div>
+          <div class="floor-shadow"></div>
+        </div>
+
+        <div class="overlay-glass"></div>
+        <div class="shutter" id="ed-shutter"></div>
+        <div class="seal-stamp">馆藏<small>已编目</small></div>
+
+        <div class="placard">
+          <div class="p-name" id="placard-name">未命名</div>
+          <div class="p-en" id="placard-en">UNTITLED</div>
+          <div class="p-rule"><i></i><b></b><i></i></div>
+          <div class="p-meta">
+            <span class="p-kind" id="placard-kind">原画 · 普通</span>
+            <span class="p-no" id="placard-no">NO.001</span>
+          </div>
+          <div class="p-lore" id="placard-lore"></div>
+        </div>
+
+        <!-- 黄铜画轨工具舱 -->
+        <div class="railwrap">
+          <div class="rail">
+            <span class="finial l"></span>
+            <div class="modes" role="group" aria-label="显示模式">
+              <button id="ed-mode-composite" class="mode" aria-pressed="true" title="所有图层在卡面内合成（默认）">普通</button>
+              <button id="ed-mode-relief" class="mode" aria-pressed="false" title="主体/特效/文字作为独立平面浮空，呈立体纸雕层次">浮雕</button>
+            </div>
+            <span class="rail-sep"></span>
+            <button id="ed-flip" class="tool" title="翻转到卡背">翻面</button>
+            <button id="ed-auto" class="tool" aria-pressed="false" title="开始自动旋转；旋转中点击归位">旋转</button>
+            <span class="rail-sep"></span>
+            <div class="gems" role="group" aria-label="卡面材质">
+              <button class="ed-swatch g-original" data-finish="original" title="原画"></button>
+              <button class="ed-swatch g-silver" data-finish="silver" title="镀银"></button>
+              <button class="ed-swatch g-gold" data-finish="gold" title="烫金"></button>
+              <button class="ed-swatch g-bronze" data-finish="bronze" title="古铜"></button>
+              <button class="ed-swatch g-rainbow" data-finish="rainbow" title="虹息"></button>
+              <button class="ed-swatch g-frosted" data-finish="frosted" title="磨砂"></button>
+              <button class="ed-swatch g-wood" data-finish="wood" title="木纹"></button>
+            </div>
+            <span id="ed-finish-name" class="finish-name">原画</span>
+            <span class="rail-sep"></span>
+            <label class="foil" title="光泽强度">
+              <span class="foil-lab">光泽</span>
+              <input id="ed-foil" type="range" min="0" max="1" step="0.01" value="0.65" />
+              <span class="foil-val" id="ed-foil-val">65%</span>
+            </label>
+            <span class="finial r"></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 策展抽屉：皮革装订 + 书签缎带页签 -->
+      <aside class="drawer">
+        <div class="ribbons" role="tablist" aria-label="编辑面板">
+          <button class="ribbon on" data-panel="layers" role="tab" aria-selected="true"><span class="t">图层</span></button>
+          <button class="ribbon" data-panel="text" role="tab" aria-selected="false"><span class="t">文字</span></button>
+          <button class="ribbon" data-panel="lineart" role="tab" aria-selected="false"><span class="t">线稿</span></button>
+        </div>
+        <div class="drawer-body">
+          <div class="panel" data-panel-body="layers">
+            <div class="d-label">图 层 序</div>
+            <ul id="ed-layer-list" class="ed-layer-list"></ul>
+            <div id="ed-layer-controls" class="ed-layer-controls"></div>
+          </div>
+          <div class="panel" data-panel-body="text" hidden>
+            <div class="d-label">文 字 层</div>
+            <div id="ed-text-form" class="ed-text-form"></div>
+            <div class="d-label">卡 框</div>
+            <div class="ed-row">
+              <select id="ed-frame">
+                <option value="none">无框</option>
+                <option value="thin" selected>细线框</option>
+              </select>
+            </div>
+          </div>
+          <div class="panel" data-panel-body="lineart" hidden>
+            <div class="d-label">线 稿 · 发 光 描 边</div>
+            <div class="ed-row">
+              <label class="ed-inline-check"
+                ><input id="ed-line-enabled" type="checkbox" checked /> 启用线稿（随主体层自动生成）</label
+              >
+            </div>
+            <div class="prop">
+              <div class="p-head"><span class="p-name">强度</span><span class="p-val" id="ed-line-strength-val">50%</span></div>
+              <input id="ed-line-strength" type="range" min="0" max="1" step="0.01" value="0.5" />
+            </div>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <div id="ed-toast" class="ed-toast" hidden></div>
+    <input type="file" id="ed-import-holo-input" accept=".holo,application/zip" hidden />
+    <script type="module" src="./editor.bundle.js"></script>
+  </body>
+</html>
