@@ -44,11 +44,9 @@ python -m http.server 8000
 ## 📽️ 演示视频
 
 1. 普通模式
-> **<
 
 https://github.com/user-attachments/assets/44c4fff4-6374-471f-9a3b-1228c61bf09e
 
->**
 
 2.浮雕模式
 > **<https://Wjyms-888.github.io/ShuangCard/>**
