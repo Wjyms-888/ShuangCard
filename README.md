@@ -41,6 +41,14 @@ npx serve .
 python -m http.server 8000
 ```
 
+## 📽️ 演示视频
+
+1. 普通模式
+> **<https://Wjyms-888.github.io/ShuangCard/>**
+
+2.浮雕模式
+> **<https://Wjyms-888.github.io/ShuangCard/>**
+
 ## 📁 仓库结构（本目录为可部署的完整站点）
 
 ```
