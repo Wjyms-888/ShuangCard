@@ -41,7 +41,7 @@ npx serve .
 python -m http.server 8000
 ```
 
-## 📽️ 演示视频
+## 📽️ 成品展示
 
 1. 普通模式
 
